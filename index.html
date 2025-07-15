@@ -330,7 +330,7 @@
             <div class="baseline-input">
                 <div class="input-grid">
                     <div class="input-group">
-                        <label for="baseline-revenue">Current Annual Partnership Bookings ($M):</label>
+                        <label for="baseline-revenue">Current Annual Partnership Revenue ($M):</label>
                         <input type="number" id="baseline-revenue" value="30" min="0" step="1">
                     </div>
                 </div>
@@ -479,7 +479,7 @@
         </div>
         
         <div class="chart-container">
-            <div class="chart-title">Aggregate by Year</div>
+            <div class="chart-title">Aggregate by Calendar Year</div>
             <table>
                 <thead>
                     <tr>
@@ -730,6 +730,11 @@
             // Update business summary
             updateBusinessSummary(totalReturns, totalInvestment, values.baselineRevenue);
 
+            // Calculate column totals for the total row
+            const totalI1 = displayYear1I1 + displayYear2I1 + displayYear3I1;
+            const totalI2 = displayYear2I2 + displayYear3I2;
+            const totalI3 = displayYear3I3;
+
             const tableBody = document.getElementById('results-table');
             tableBody.innerHTML = `
                 <tr>
@@ -761,9 +766,9 @@
                 </tr>
                 <tr class="total-row">
                     <td><strong>Total</strong></td>
-                    <td class="dash">–</td>
-                    <td class="dash">–</td>
-                    <td class="dash">–</td>
+                    <td class="positive"><strong>${formatNumber(Math.round(totalI1))} K</strong></td>
+                    <td class="positive"><strong>${formatNumber(Math.round(totalI2))} K</strong></td>
+                    <td class="positive"><strong>${formatNumber(Math.round(totalI3))} K</strong></td>
                     <td class="positive"><strong>${formatNumber(Math.round(totalReturns))} K</strong></td>
                     <td><strong>${formatNumber(totalInvestment)} K</strong></td>
                     <td class="multiplier"><strong>${formatROI(totalROI, totalMult)}</strong></td>
